@@ -29,7 +29,8 @@ class SettingController extends GetxController {
   }
 
   void changePassword() async {
-    var user = await box.read('user') as UserModel;
+    var userJson = await box.read('user');
+    var user = UserModel.fromJson(userJson);
     var password = user.password;
 
     var oldPassword = oldPasswordController.text;
@@ -43,7 +44,7 @@ class SettingController extends GetxController {
         ),
       );
 
-      await box.write('user', user);
+      await box.write('user', user.toJson());
 
       Get.snackbar('Change Password', 'Password changed successfully');
       Get.offAllNamed(Routes.HOME);
@@ -53,7 +54,8 @@ class SettingController extends GetxController {
   }
 
   void logout() async {
-    var user = await box.read('user') as UserModel;
+    var userJson = await box.read('user');
+    var user = UserModel.fromJson(userJson);
     var username = user.username;
     await box.remove('user');
 

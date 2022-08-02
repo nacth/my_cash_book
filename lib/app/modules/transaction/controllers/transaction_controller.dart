@@ -40,7 +40,8 @@ class TransactionController extends GetxController {
   }
 
   void create() async {
-    var user = await box.read('user') as UserModel;
+    var userJson = await box.read('user');
+    var user = UserModel.fromJson(userJson);
     var idUser = user.idUser;
 
     var date = DateTime.now();

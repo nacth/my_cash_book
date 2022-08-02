@@ -36,7 +36,7 @@ class LoginController extends GetxController {
     );
 
     if (user != null) {
-      await box.write('user', user);
+      await box.write('user', user.toJson());
 
       Get.snackbar('Login', 'Welcome ${user.username}');
       Get.offNamed(Routes.HOME);
